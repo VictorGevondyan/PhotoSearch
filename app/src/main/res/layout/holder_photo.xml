@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+                name="photoViewModel"
+                type="com.android.photosearch.presentation.search.PhotoViewModel" />
+    </data>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@{photoViewModel.photo.text}"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="ASDFG" />
+
+</layout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/light_gray</color>
+    <color name="colorPrimaryDark">@color/picton_blue</color>
+    <color name="colorAccent">@color/froly</color>
+    <color name="colorTextPrimary">@color/nero</color>
+    <color name="light_gray">#D8DFE3</color>
+    <color name="picton_blue">#5AACDB</color>
+    <color name="froly">#DB7074</color>
+    <color name="nero">#202020</color>
+
+</resources>
