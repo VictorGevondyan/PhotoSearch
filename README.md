@@ -35,6 +35,5 @@ At a glance:
 - Room - for persistent storage.
 - Hilt - for Dependency Injection.
 - Glide - for effective image loading and displaying.
-- Multidex - for dealing with app big size.
 - Espresso - for Instrumented Tests.
 - Robolectric - for unit tests.

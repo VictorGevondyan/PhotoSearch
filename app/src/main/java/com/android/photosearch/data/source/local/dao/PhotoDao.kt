@@ -1,6 +1,7 @@
 package com.android.photosearch.data.source.local.dao
 
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.android.photosearch.domain.model.Photo
 import io.reactivex.Single
@@ -15,7 +16,7 @@ interface PhotoDao {
     fun insert(photo: Photo): Long
 
     @Query("SELECT * FROM Photo")
-    fun loadAll(): Single<MutableList<Photo>?>
+    fun loadAll(): PagingSource<Int, Photo>/*Single<PagingData<Photo>   >*//*Single<MutableList<Photo>?>*/
 
     @Delete
     fun delete(photo: Photo)
@@ -26,8 +27,8 @@ interface PhotoDao {
     @Query("SELECT * FROM Photo where id = :id")
     fun getPhoto(id: Long): Single<Photo?>
 
-    @Query("SELECT * FROM Photo where text = :photoTitle")
-    fun getPhotoByText(photoTitle: String): Single<Photo?>
+    @Query("SELECT * FROM Photo where title = :photoTitle")
+    fun getPhotoByText(photoTitle: String): PagingSource<Int, Photo>/*Single<PagingData<Photo>>*/
 
     @Update
     fun update(photo: Photo)

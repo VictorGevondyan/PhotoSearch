@@ -46,7 +46,7 @@ class PhotoDaoTest {
     fun insertPhotoAndLoadByTitle() {
 
         val photo: Photo = TestUtil.createPhoto(1).apply {
-            text = "Cat"
+            title = "Cat"
         }
         mDatabase.photoDao.insert(photo)
 

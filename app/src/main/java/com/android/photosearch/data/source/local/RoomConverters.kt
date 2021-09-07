@@ -9,7 +9,7 @@ import java.util.*
 class RoomConverters {
 
     @TypeConverter
-    fun convertMeaningArr(list: ArrayList<Photo.Meaning?>?): String? {
+    fun convertPhotoArr(list: ArrayList<Photo?>?): String? {
 
         return if (list == null) {
             null
@@ -20,7 +20,7 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun toMeaningArr(string: String?): ArrayList<Photo.Meaning?>? {
+    fun toPhotoArr(string: String?): ArrayList<Photo?>? {
 
         if (string == null) {
             return null
@@ -29,9 +29,9 @@ class RoomConverters {
         val gson = Gson()
 
         val type =
-            object : TypeToken<List<Photo.Meaning?>?>() {}.type
+            object : TypeToken<List<Photo?>?>() {}.type
 
-        return gson.fromJson<ArrayList<Photo.Meaning?>>(
+        return gson.fromJson<ArrayList<Photo?>>(
             string,
             type
         )

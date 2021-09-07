@@ -14,7 +14,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.android.photosearch.CustomTestRunner"
-        multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
     }
     buildFeatures {
@@ -56,6 +55,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     //ktx
     implementation "androidx.core:core-ktx:1.5.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.activity:activity-ktx:1.2.3"
     implementation "androidx.fragment:fragment-ktx:1.3.4"
     implementation 'androidx.preference:preference-ktx:1.1.1'
@@ -75,23 +75,31 @@ dependencies {
     //hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:2.38.1"
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
     // glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
-    //multidex
-    implementation 'androidx.multidex:multidex:2.0.1'
+    // pagination
+    implementation 'com.github.markomilos:paginate:1.0.0'
+
+    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
+    implementation("androidx.paging:paging-rxjava2-ktx:$paging_version")
+    implementation "androidx.paging:paging-rxjava2:$paging_version"
 
     /* Instrumented Unit tests dependencies */
     androidTestImplementation "androidx.test:core:$test_version"
     androidTestImplementation "androidx.test:runner:$test_version"
     androidTestImplementation "androidx.test:rules:$test_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
     // Hilt instrumented tests.
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hilt_version")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hilt_version")
+    // Hilt instrumented tests.
+    testImplementation("com.google.dagger:hilt-android-testing:$hilt_version")
+    kaptTest("com.google.dagger:hilt-android-compiler:$hilt_version")
     // Fragment testing
     debugImplementation("androidx.fragment:fragment-testing:$fragment_version")
 
@@ -102,4 +110,8 @@ dependencies {
     // Robolectric environment
     testImplementation 'org.robolectric:robolectric:4.4'
 
+}
+
+kapt {
+    correctErrorTypes true
 }

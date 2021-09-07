@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.photosearch.R
 import com.android.photosearch.databinding.HolderPhotoBinding
@@ -15,8 +17,8 @@ import java.util.*
  * This class is responsible for converting each data entry [Photo]
  * into [PhotoViewHolder] that can then be added to the AdapterView.
  */
-class SearchResultsAdapter(val searchPhotoClickListener: OnSearchAdapterListener) :
-    RecyclerView.Adapter<PhotoViewHolder>() {
+class SearchResultsAdapter(diffCallback: DiffUtil.ItemCallback<Photo>) :
+    PagingDataAdapter<Photo, PhotoViewHolder>(diffCallback) {
 
     private val photos: MutableList<Photo> = ArrayList()
 
@@ -33,12 +35,12 @@ class SearchResultsAdapter(val searchPhotoClickListener: OnSearchAdapterListener
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        getItem(position)?.let { holder.onBind(it) }
     }
 
-    private fun getItem(position: Int): Photo {
-        return photos[position]
-    }
+//    override fun getItem(position: Int): Photo {
+//        return photos[position]
+//    }
 
     override fun getItemCount(): Int {
         return photos.size
@@ -57,11 +59,6 @@ class SearchResultsAdapter(val searchPhotoClickListener: OnSearchAdapterListener
             val holderPhotoBinding = dataBinding as HolderPhotoBinding
             val photoViewModel = PhotoViewModel(photo)
             holderPhotoBinding.photoViewModel = photoViewModel
-
-            itemView.setOnClickListener {
-                searchPhotoClickListener.showPhotoDetails(photo)
-            }
-
         }
 
     }

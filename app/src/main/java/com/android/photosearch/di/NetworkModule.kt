@@ -2,6 +2,7 @@ package com.android.photosearch.di
 
 
 import com.android.photosearch.data.repository.PhotoRepositoryImp
+import com.android.photosearch.data.source.remote.PhotoPagingSource
 import com.android.photosearch.data.source.remote.RetrofitService
 import com.android.photosearch.domain.repository.PhotoRepository
 import com.android.photosearch.util.Constants.BASE_URL
@@ -10,6 +11,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -83,13 +85,22 @@ class NetworkModule {
     @Singleton
     @Provides
     fun providePhotoRepository(
-        retrofitService: RetrofitService
+//        photoPagingSource: PhotoPagingSource
+    retrofitService: RetrofitService
     ): PhotoRepository {
         return PhotoRepositoryImp(retrofitService)
     }
 
+    @Singleton
+    @Provides
+    fun providePagingSource(
+        retrofitService: RetrofitService,
+    ): PhotoPagingSource {
+        return PhotoPagingSource(retrofitService, "")
+    }
+
     companion object {
-        private const val REQUEST_TIMEOUT = 120L
+        private const val REQUEST_TIMEOUT = 60L
     }
 
 }

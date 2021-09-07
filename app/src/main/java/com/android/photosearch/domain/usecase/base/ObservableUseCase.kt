@@ -1,6 +1,6 @@
 package com.android.photosearch.domain.usecase.base
 
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
  **/
 abstract class ObservableUseCase<T, in Params> : UseCase() {
 
-    abstract fun buildUseCaseObservable(params: Params): Observable<T>
+    abstract fun buildUseCaseObservable(params: Params): Single<T>
 
     fun execute(
         onSuccess: (t: T) -> Unit,
@@ -31,8 +31,5 @@ abstract class ObservableUseCase<T, in Params> : UseCase() {
         }
 
     }
-
-    // The class to pass in "Params", when there are no "Params".
-    class None
 
 }

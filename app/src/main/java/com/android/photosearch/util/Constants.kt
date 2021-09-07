@@ -6,7 +6,9 @@ package com.android.photosearch.util
  */
 object Constants {
 
-     const val BASE_URL = "https://api.flickr.com/services"
-     const val PHOTOS_BASE_URL = "https://live.staticflickr.com"
+     const val BASE_URL = "https://api.flickr.com/services/"
+     const val PHOTOS_BASE_URL = "https://live.staticflickr.com/"
      const val GRID_SPAN_COUNT = 2
+     const val PHOTO_PAGE_SIZE = 20
+     const val OK_STATUS = "ok"
 }

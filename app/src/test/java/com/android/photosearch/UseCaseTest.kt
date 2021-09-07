@@ -4,7 +4,9 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android.photosearch.domain.usecase.base.ObservableUseCase
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers.single
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -57,8 +59,8 @@ class ObservableUseCaseTest {
 
         var valuesCount = 0
 
-        override fun buildUseCaseObservable(params: Params): Observable<Any> {
-            return Observable.empty()
+        override fun buildUseCaseObservable(params: Params): Single<Any> {
+            return Single.fromObservable(Observable.empty<Any>())
         }
 
         fun getDisposable(): Disposable? {

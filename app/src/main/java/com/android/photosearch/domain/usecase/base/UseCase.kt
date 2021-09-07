@@ -30,4 +30,7 @@ abstract class UseCase {
         compositeDisposable.clear()
     }
 
+    // The class to pass in "Params", when there are no "Params".
+    class None
+
 }
