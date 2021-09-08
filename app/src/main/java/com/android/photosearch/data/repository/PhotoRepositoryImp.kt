@@ -4,13 +4,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.rxjava2.flowable
-import androidx.paging.rxjava2.observable
 import com.android.photosearch.data.source.remote.PhotoPagingSource
 import com.android.photosearch.data.source.remote.RetrofitService
 import com.android.photosearch.domain.model.Photo
 import com.android.photosearch.domain.repository.PhotoRepository
 import io.reactivex.Flowable
-import io.reactivex.Single
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -20,7 +18,6 @@ import javax.inject.Inject
  * */
 
 class PhotoRepositoryImp @Inject constructor(
-//    private val pagingSource: PhotoPagingSource
 private val retrofitService: RetrofitService
 ) : PhotoRepository {
 
@@ -28,12 +25,9 @@ private val retrofitService: RetrofitService
     override fun getPhotos(
         searchQuery: String,
         photosPerPage: Int
-//        ,
-//        currentPage: Int
     ): Flowable<PagingData<Photo>> {
 
         val pagingSource = PhotoPagingSource(retrofitService, searchQuery)
-//        pagingSource.setQuery(searchQuery)
 
         return Pager(
             config = PagingConfig(

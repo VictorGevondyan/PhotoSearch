@@ -38,12 +38,6 @@ class SearchViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<LDEvent<Boolean>>()
     val isLoading: LiveData<LDEvent<Boolean>> = _isLoading
 
-    private val _hasLoadedAllItems = MutableLiveData<LDEvent<Boolean>>()
-    val hasLoadedAllItems: LiveData<LDEvent<Boolean>> = _hasLoadedAllItems
-
-    private val _setPagination = MutableLiveData<LDEvent<Boolean>>()
-    val setPagination: LiveData<LDEvent<Boolean>> = _setPagination
-
     private var previousQueryText = ""
 //    private var pageNumber = 0
 
@@ -66,46 +60,17 @@ class SearchViewModel @Inject constructor(
 
     }
 
-    fun loadPhotos()/*: Flowable<PagingData<Photo>>*/ {
+    fun loadPhotos() : Flowable<PagingData<Photo>> {
 
 //        _isLoading.value = LDEvent(true)
-        /*return*/ flowable = getPhotoListUseCase.execute(
-//            onSuccess = { pagingData ->
-//
-//                _isLoading.value = LDEvent(false)
-//                Flowable.just(pagingData).cachedIn(viewModelScope)
-//
-////                val photosList = it
-////                _hasLoadedAllItems.value = LDEvent(photosList < 20)
-//                // TODO: handle bad status
-////                if (it.status == Constants.OK_STATUS) {
-////                    pageNumber++
-////                _photosList.value = LDEvent(pagingData)
-////                    _setPagination.value = LDEvent(true)
-////                }
-//
-//            },
-//            onError = {
-//                _isLoading.value = LDEvent(false)
-////                _hasLoadedAllItems.value = LDEvent(true)
-//
-//                it.printStackTrace()
-//            },
+        return getPhotoListUseCase.execute(
             params = GetPhotosUseCase.GetPhotosParams(
                 searchSubject,
                 20,
                 0,
                 previousQueryText
             )
-        )
-
-            flowable?.cachedIn(viewModelScope)
-
-//            .subscribe({ pagingData ->
-//                _photosList.value = LDEvent(pagingData)
-//            }, {
-//                it.printStackTrace()
-//            })
+        ).cachedIn(viewModelScope)
 
     }
 

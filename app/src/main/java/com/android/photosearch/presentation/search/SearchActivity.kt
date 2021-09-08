@@ -24,8 +24,6 @@ class SearchActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySearchBinding
 
-//    private lateinit var  callback: Paginate.Callbacks
-
     private val mDisposable = CompositeDisposable()
 
     private var searchResultsAdapter: SearchResultsAdapter? = null
@@ -75,7 +73,6 @@ class SearchActivity : BaseActivity() {
             )
 
         setupRecyclerView()
-//        initPaginateCallback()
 
     }
 
@@ -95,29 +92,13 @@ class SearchActivity : BaseActivity() {
             }
         })
 
-/*
-        viewModel.setPagination.observe(this, {
-            it.getIfNotHandled()?.let { setPagination ->
-                if (setPagination) {
-                    Paginate.with(binding.searchRecyclerView, callback)
-                        .setLoadingTriggerThreshold(17)
-                        .addLoadingListItem(true)
-                        .setLoadingListItemSpanSizeLookup { 2 }
-                        .build()
-                }
-            }
-        })
-*/
-
 //        viewModel.photosList.observe(this, {
 //            it.getIfNotHandled()?.let { pagingData ->
 //                searchResultsAdapter?.submitData(lifecycle,pagingData)
 //            }
 //        })
 
-//        mDisposable.add(viewModel.loadPhotos().subscribe { pagingData ->
-//            searchResultsAdapter?.submitData(lifecycle,pagingData)
-//        })
+
     }
 
     private fun setupRecyclerView() {
@@ -127,32 +108,10 @@ class SearchActivity : BaseActivity() {
         binding.searchRecyclerView.layoutManager =
             GridLayoutManager(this, Constants.GRID_SPAN_COUNT)
 
-        viewModel.flowable
-//            ?.subscribeOn(Schedulers.io())
-//            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe(  { pagingData -> searchResultsAdapter?.submitData(lifecycle, pagingData)},{})
+        mDisposable.add(viewModel.loadPhotos().subscribe { pagingData ->
+            searchResultsAdapter?.submitData(lifecycle, pagingData)
+        })
 
     }
-
-/*
-    private fun initPaginateCallback() {
-
-        callback = object : Paginate.Callbacks {
-            override fun onLoadMore() {
-                viewModel.loadPhotos()
-            }
-
-            override fun isLoading(): Boolean {
-                return viewModel.isLoading.value?.getContent() ?: false // TODO: think about this
-            }
-
-            override fun hasLoadedAllItems(): Boolean {
-                return viewModel.hasLoadedAllItems.value?.getContent() ?: false
-            }
-        }
-
-    }
-*/
-
 
 }
