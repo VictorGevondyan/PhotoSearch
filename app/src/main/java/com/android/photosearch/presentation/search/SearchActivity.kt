@@ -2,11 +2,14 @@ package com.android.photosearch.presentation.search
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.photosearch.R
 import com.android.photosearch.databinding.ActivitySearchBinding
@@ -108,6 +111,24 @@ class SearchActivity : BaseActivity() {
         binding.searchRecyclerView.layoutManager =
             GridLayoutManager(this, Constants.GRID_SPAN_COUNT)
 
+        searchResultsAdapter!!.addLoadStateListener { combinedLoadStates: CombinedLoadStates ->
+
+//            combinedLoadStates.source.
+            // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
+            val errorState = combinedLoadStates.source.append as? LoadState.Error
+                ?: combinedLoadStates.source.prepend as? LoadState.Error
+                ?: combinedLoadStates.append as? LoadState.Error
+                ?: combinedLoadStates.prepend as? LoadState.Error
+
+            errorState?.let {
+                Toast.makeText(
+                    this,
+                    "\uD83D\uDE28 Wooops ${it.error}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+        }
         mDisposable.add(viewModel.loadPhotos().subscribe { pagingData ->
             searchResultsAdapter?.submitData(lifecycle, pagingData)
         })
