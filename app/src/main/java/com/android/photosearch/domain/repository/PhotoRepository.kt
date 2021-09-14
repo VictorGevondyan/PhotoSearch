@@ -16,8 +16,6 @@ interface PhotoRepository {
     fun getPhotos(
         searchQuery: String,
         photosPerPage: Int
-//        ,
-//        currentPage: Int
     ): Flowable<PagingData<Photo>>
 
 }

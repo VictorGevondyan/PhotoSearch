@@ -95,11 +95,11 @@ class SearchActivity : BaseActivity() {
             }
         })
 
-//        viewModel.photosList.observe(this, {
-//            it.getIfNotHandled()?.let { pagingData ->
-//                searchResultsAdapter?.submitData(lifecycle,pagingData)
-//            }
-//        })
+        viewModel.photosList.observe(this, {
+            it.getIfNotHandled()?.let { pagingData ->
+                searchResultsAdapter?.submitData(lifecycle,pagingData)
+            }
+        })
 
 
     }
@@ -129,9 +129,9 @@ class SearchActivity : BaseActivity() {
             }
 
         }
-        mDisposable.add(viewModel.loadPhotos().subscribe { pagingData ->
-            searchResultsAdapter?.submitData(lifecycle, pagingData)
-        })
+//        mDisposable.add(viewModel.loadPhotos().subscribe { pagingData ->
+//            searchResultsAdapter?.submitData(lifecycle, pagingData)
+//        })
 
     }
 
