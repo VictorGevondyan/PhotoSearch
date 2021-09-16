@@ -20,8 +20,6 @@ import java.util.*
 class SearchResultsAdapter(diffCallback: DiffUtil.ItemCallback<Photo>) :
     PagingDataAdapter<Photo, PhotoViewHolder>(diffCallback) {
 
-    private val photos: MutableList<Photo> = ArrayList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
 
         val holderPhotoBinding = DataBindingUtil.inflate<ViewDataBinding>(
@@ -36,20 +34,6 @@ class SearchResultsAdapter(diffCallback: DiffUtil.ItemCallback<Photo>) :
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         getItem(position)?.let { holder.onBind(it) }
-    }
-
-//    override fun getItem(position: Int): Photo {
-//        return photos[position]
-//    }
-
-    override fun getItemCount(): Int {
-        return photos.size
-    }
-
-    fun addData(list: List<Photo>) {
-        this.photos.clear()
-        this.photos.addAll(list)
-        notifyDataSetChanged()
     }
 
     inner class PhotoViewHolder(private val dataBinding: ViewDataBinding) :
